@@ -1,0 +1,10 @@
+﻿<Window x:Class="CardGame.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Card Game" Height="350" Width="525">
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
+            Игра началась! Количество игроков: 
+        </TextBlock>
+    </Grid>
+</Window>
