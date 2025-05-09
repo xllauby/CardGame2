@@ -1,39 +1,10 @@
 ﻿<Window x:Class="CardGame.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Card Game" Height="800" Width="600" MinHeight="800" MinWidth="600" MaxHeight="800" MaxWidth="600"
-        Icon="image.png"
-        WindowStartupLocation="CenterScreen"
-        Background="#FFFDFDFD" >
-    <Grid Margin="20">
-        <TextBlock x:Name="TrumpCardText" FontSize="20" FontWeight="SemiBold" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,360,0,0"/>
-        <TextBlock Text="Ваши карты:" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" />
-        <ListBox x:Name="PlayerCardsList" Width="500" Height="287" FontSize="22" Margin="0,60,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="#FF888888" BorderThickness="1" Background="#FFF5F5F5" SelectionMode="Single">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <TextBlock Text="Карты на поле:" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,396,0,0" />
-        <ListBox x:Name="CardsOnFieldList" Width="500" Height="205" FontSize="20" Margin="0,444,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="#FF888888" BorderThickness="1" Background="#FFEFEFEF">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="3" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <Button x:Name="PlayCardButton" Content="Сделать ход" Width="243" Height="45" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,674,0,0" Click="PlayCardButton_Click">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="#FF3A86FF" CornerRadius="8" Padding="10"
-                            BorderThickness="0">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" Content="{TemplateBinding Content}" />
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        Title="Card Game" Height="350" Width="525">
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
+            Игра началась! Количество игроков: 
+        </TextBlock>
     </Grid>
 </Window>
