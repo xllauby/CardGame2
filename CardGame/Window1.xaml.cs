@@ -34,16 +34,15 @@ namespace CardGame
 
             trumpCard = deck.Draw();
             Card.TrumpSuit = trumpCard.Suit;
+
             MessageBox.Show($"Козырь: {trumpCard.Display}", "Козырная карта");
             TrumpCardText.Text = $"Козырь: {trumpCard.Display}";
-
-            deck = new Deck();
-            deck.Shuffle();
 
             playerHand = new List<Card>();
             computerPlayers = new List<ComputerPlayer>();
             cardsOnField = new List<Card>();
 
+            // Раздаем игроку
             for (int i = 0; i < 6; i++)
             {
                 var card = deck.Draw();
@@ -51,6 +50,7 @@ namespace CardGame
                     playerHand.Add(card);
             }
 
+            // Раздаем компьютерам
             for (int p = 1; p < PlayersCount; p++)
             {
                 var hand = new List<Card>();
@@ -76,20 +76,6 @@ namespace CardGame
                 {
                     PlayCardButton_Click(null, null);
                 });
-            }
-        }
-
-        private void CheckForWinner()
-        {
-            if (playerHand.Count == 0)
-            {
-                MessageBox.Show("Поздравляем! Вы победили!", "Победа", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            else if (computerPlayers.All(p => p.CardsRemaining == 0))
-            {
-                MessageBox.Show("Все компьютеры проиграли! Вы победили!", "Победа", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
             }
         }
 
@@ -155,6 +141,52 @@ namespace CardGame
             }
 
             CheckForWinner();
+            RefillHands();
+        }
+
+        private void RefillHands()
+        {
+            // Пополняем руки в порядке от текущего игрока
+            for (int i = 0; i < PlayersCount; i++)
+            {
+                int index = (currentPlayerIndex + i) % PlayersCount;
+
+                if (index == 0)
+                {
+                    while (playerHand.Count < 6 && deck.Count > 0)
+                    {
+                        var card = deck.Draw();
+                        if (card != null) playerHand.Add(card);
+                    }
+                }
+                else
+                {
+                    var computer = computerPlayers[index - 1];
+                    while (computer.CardsRemaining < 6 && deck.Count > 0)
+                    {
+                        var card = deck.Draw();
+                        if (card != null) computer.AddToHand(card);
+                    }
+                }
+            }
+
+            // Обновить отображение руки игрока
+            PlayerCardsList.ItemsSource = playerHand.Select(c => c.Display);
+            TrumpCardText.Text = $"Козырь: {trumpCard.Display} | Осталось в колоде: {deck.Count}";
+        }
+
+        private void CheckForWinner()
+        {
+            if (playerHand.Count == 0)
+            {
+                MessageBox.Show("Поздравляем! Вы победили!", "Победа", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else if (computerPlayers.All(p => p.CardsRemaining == 0))
+            {
+                MessageBox.Show("Все компьютеры проиграли! Вы победили!", "Победа", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
         }
 
         private void UpdatePlayButtonText()
